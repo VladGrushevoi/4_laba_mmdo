@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -39,7 +39,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.x = new System.Windows.Forms.Label();
+            this.x_text = new System.Windows.Forms.Label();
+            this.iter_text = new System.Windows.Forms.Label();
+            this.iter_count = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -87,16 +89,16 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(30, 106);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(1140, 502);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -143,21 +145,38 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Вибір метода";
             // 
-            // x
+            // x_text
             // 
-            this.x.AutoSize = true;
-            this.x.Location = new System.Drawing.Point(654, 42);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(46, 17);
-            this.x.TabIndex = 8;
-            this.x.Text = "label4";
+            this.x_text.AutoSize = true;
+            this.x_text.Location = new System.Drawing.Point(627, 9);
+            this.x_text.Name = "x_text";
+            this.x_text.Size = new System.Drawing.Size(0, 17);
+            this.x_text.TabIndex = 8;
+            // 
+            // iter_text
+            // 
+            this.iter_text.AutoSize = true;
+            this.iter_text.Location = new System.Drawing.Point(627, 56);
+            this.iter_text.Name = "iter_text";
+            this.iter_text.Size = new System.Drawing.Size(0, 17);
+            this.iter_text.TabIndex = 9;
+            // 
+            // iter_count
+            // 
+            this.iter_count.AutoSize = true;
+            this.iter_count.Location = new System.Drawing.Point(923, 12);
+            this.iter_count.Name = "iter_count";
+            this.iter_count.Size = new System.Drawing.Size(0, 17);
+            this.iter_count.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 626);
-            this.Controls.Add(this.x);
+            this.Controls.Add(this.iter_count);
+            this.Controls.Add(this.iter_text);
+            this.Controls.Add(this.x_text);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
@@ -187,7 +206,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label x;
+        private System.Windows.Forms.Label x_text;
+        private System.Windows.Forms.Label iter_text;
+        private System.Windows.Forms.Label iter_count;
     }
 }
 

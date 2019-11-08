@@ -46,14 +46,18 @@ namespace _4_laba_mmdo
                     case 1: Dihotomia(); break;
                     case 2: GoldSlice(); break;
                     case 3: Fibonachi(); break;
-                    //case 4: Newton(); break;
+                    case 4: Parabol(); break;
 
                 }
             }
         }
 
+        private int count_callFunc = 0;
+        private int iterCount = 0;
         private double Function(double x)
         {
+            count_callFunc++;
+            //return Math.Pow(x, 4) + 4 * Math.Pow(x, 3) + 3 * Math.Pow(x, 2) - 36 * x + 45;
             return Math.Pow(x, 6) - 3 * Math.Pow(x, 2) + 5 * x + 1;
         }
 
@@ -61,7 +65,8 @@ namespace _4_laba_mmdo
         {
             chart1.Series[1].Points.Clear();
             double x_min, x_max;
-            double x0 = 1, f0 = Function(x0), x2=0, x1 = 0, h = 0.001, eps = 0.0001;
+            double x0 = 1, x2, x1, h = 0.001, eps = 0.0001;
+            double x_res=0, fx_res=0;
             x_min = Convert.ToDouble(numericUpDown1.Value);
             x_max = Convert.ToDouble(numericUpDown2.Value);
 
@@ -90,34 +95,40 @@ namespace _4_laba_mmdo
                     f2 = Function(x2);
 
                 } while (f1<f2);
+
+                if (h > 0)
+                {
+                    x_min = x1 - h;
+                    x_max = x2;
+                }
+                else
+                {
+                    x_min = x1;
+                    x_max = x2 - h;
+                }
             }
             else
             {
-
+                x_res = x0;
+                fx_res = Function(x0);
+                chart1.Series[1].Points.AddXY(x_res, fx_res);
+                chart1.Series[1].Color = Color.Red;
+                x_text.Text = "Мінімум " + fx_res.ToString() + " 1";
+                chart1.Series[1].MarkerSize = 8;
             }
-
-            if (h > 0)
-            {
-                x_min = x1 - h;
-                x_max = x2;
-            }
-            else
-            {
-                x_min = x1;
-                x_max = x2-h;
-            }
-            
         }
 
         private void Dihotomia()
         {
+            count_callFunc = 0;
+            iterCount = 0;
             chart1.Series[1].Points.Clear();
             double x_min, x_max;
-            double eps = 0.0001, d = eps / 3, x1 = 0, x2 = 0, f1 = 0, f2 = 0;
+            double eps = 0.0001, d = eps / 3, x1, x2, f1, f2;
             x_min = Convert.ToDouble(numericUpDown1.Value);
             x_max = Convert.ToDouble(numericUpDown2.Value);
 
-            while (x_max - x_min < eps)
+            do
             {
                 x1 = (x_min + x_max - d) / 2;
                 x2 = (x_min + x_max + d) / 2;
@@ -133,18 +144,23 @@ namespace _4_laba_mmdo
                 {
                     x_max = x1;
                 }
-            }
+                iterCount++;
+            } while (Math.Abs(x_max - x_min) > eps);
             double x_res = (x_min + x_max) / 2, fx_res = Function(x_res);
             chart1.Series[1].Points.AddXY(x_res, fx_res);
             chart1.Series[1].Color = Color.Red;
-            x.Text = "Мінімум " + fx_res.ToString() + " 2";
+            x_text.Text = "Мінімум " + fx_res.ToString() + " 3";
+            iter_text.Text = "Кількість обчислень функцій " + count_callFunc.ToString();
+            iter_count.Text = "Кількість ітерацій " + iterCount.ToString();
             chart1.Series[1].MarkerSize = 8;
         }
 
         private void GoldSlice()
         {
+            count_callFunc = 0;
+            iterCount = 0;
             chart1.Series[1].Points.Clear();
-            double x_min, x_max, eps = 0.0001, u = 0, v = 0, fu = 0, fv = 0;
+            double x_min, x_max, eps = 0.0001, u, v, fu, fv;
             x_min = Convert.ToDouble(numericUpDown1.Value);
             x_max = Convert.ToDouble(numericUpDown2.Value);
 
@@ -154,9 +170,10 @@ namespace _4_laba_mmdo
             fu = Function(u);
             fv = Function(v);
 
-            while (x_max - x_min < eps)
+            do
             {
-                if (fu<=fv)
+                iterCount++;
+                if (fu <= fv)
                 {
                     x_max = v;
                     v = u;
@@ -180,11 +197,13 @@ namespace _4_laba_mmdo
                     fu = Function(u);
                     fv = Function(v);
                 }
-            }
+            } while (Math.Abs(x_max - x_min) > eps);
             double x_res = (x_min + x_max) / 2, fx_res = Function(x_res);
             chart1.Series[1].Points.AddXY(x_res, fx_res);
             chart1.Series[1].Color = Color.Red;
-            x.Text = "Мінімум " + fx_res.ToString()+" 3";
+            x_text.Text = "Мінімум " + fx_res.ToString()+" 3";
+            iter_text.Text = "Кількість обчислень функцій " + count_callFunc.ToString();
+            iter_count.Text = "Кількість ітерацій " + iterCount.ToString();
             chart1.Series[1].MarkerSize = 8;
         }
 
@@ -202,8 +221,10 @@ namespace _4_laba_mmdo
 
         private void Fibonachi()
         {
+            count_callFunc = 0;
+            iterCount = 0;
             chart1.Series[1].Points.Clear();
-            double a, b, n=30, u = 0, v = 0, fu = 0, fv = 0;
+            double a, b, n=30, u, v, fu, fv;
             a = Convert.ToDouble(numericUpDown1.Value);
             b = Convert.ToDouble(numericUpDown2.Value);
 
@@ -239,17 +260,46 @@ namespace _4_laba_mmdo
                     fu = Function(u);
                     fv = Function(v);
                 }
+                iterCount++;
             }
             double x_res = (a + b) / 2, fx_res = Function(x_res);
             chart1.Series[1].Points.AddXY(x_res, fx_res);
             chart1.Series[1].Color = Color.Red;
-            x.Text = "Мінімум " + fx_res.ToString()+" 4";
+            x_text.Text = "Мінімум " + fx_res.ToString()+" 4";
+            iter_text.Text = "Кількість обчислень функцій " + count_callFunc.ToString();
+            iter_count.Text = "Кількість ітерацій " + iterCount.ToString();
             chart1.Series[1].MarkerSize = 8;
         }
 
         private void Parabol()
         {
-            
+            count_callFunc = 0;
+            iterCount = 0;
+            chart1.Series[1].Points.Clear();
+            double h = 0.001;
+            double x, pogr = 0.0001, irer = 0;
+            x = Convert.ToDouble(numericUpDown1.Value);
+            if (x == 0) x += 0.1;
+            while ((Function(x + h) - 2 * Function(x) + Function(x - h)) / (h * h) <= 0) 
+            {
+                x += 0.1;
+                iterCount++;
+            }
+            double x1;
+            x1 = x - 0.5 * h * (Function(x + h) - Function(x - h)) / (Function(x + h) - 2 * Function(x) + Function(x - h));
+            while (Math.Abs(x1 - x) > pogr)
+            {
+                x = x1;
+                x1 = x - 0.5 * h * (Function(x + h) - Function(x - h)) / (Function(x + h) - 2 * Function(x) + Function(x - h));
+                iterCount++;
+            }
+            double x_res = x1, fx_res = Function(x_res);
+            chart1.Series[1].Points.AddXY(x_res, fx_res);
+            chart1.Series[1].Color = Color.Red;
+            x_text.Text = "Мінімум " + fx_res.ToString() + " 5";
+            iter_text.Text = "Кількість обчислень функцій " + count_callFunc.ToString();
+            iter_count.Text = "Кількість ітерацій " + iterCount.ToString();
+            chart1.Series[1].MarkerSize = 8;
         }
 
         private void Form1_Load(object sender, EventArgs e)
