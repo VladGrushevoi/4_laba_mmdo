@@ -142,7 +142,7 @@ namespace _4_laba_mmdo
                 }
                 else
                 {
-                    x_max = x1;
+                    x_min = x1;
                 }
                 iterCount++;
             } while (Math.Abs(x_max - x_min) > eps);
